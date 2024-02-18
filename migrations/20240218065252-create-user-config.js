@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
 	async up(queryInterface, Sequelize) {
-		await queryInterface.createTable('users', {
+		await queryInterface.createTable('user_configs', {
 			id: {
 				allowNull: false,
 				primaryKey: true,
@@ -10,22 +10,17 @@ module.exports = {
 				type: Sequelize.UUID,
 				defaultValue: Sequelize.UUIDV4,
 			},
-			username: {
+			user_id: {
 				allowNull: false,
-				type: Sequelize.STRING,
+				type: Sequelize.UUID,
 			},
-			email: {
-				allowNull: false,
-				type: Sequelize.STRING,
+			display_mode: {
+				allowNull: true,
+				type: Sequelize.STRING(16), // 'light' | 'dark' | 'system'
 			},
-			password: {
-				allowNull: false,
+			note_password: {
+				allowNull: true,
 				type: Sequelize.STRING,
-			},
-			role: {
-				allowNull: false,
-				defaultValue: 0,
-				type: Sequelize.INTEGER(11),
 			},
 			createdAt: {
 				allowNull: false,
@@ -38,6 +33,6 @@ module.exports = {
 		});
 	},
 	async down(queryInterface, Sequelize) {
-		await queryInterface.dropTable('users');
+		await queryInterface.dropTable('user_configs');
 	},
 };
